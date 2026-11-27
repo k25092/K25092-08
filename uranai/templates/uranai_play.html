@@ -8,7 +8,11 @@
 <body>
   <main>
     <h1>占い結果</h1>
-    <p>{{ name }}さん（{{ birthday }}）の占いを受け付けました。</p>
+    <p>結果: {{ uranai_rank }}</p>
+    <p>{{ result_message }}</p>
+    {% if name and birthday %}
+    <p>{{ name }}さん（{{ birthday }}）</p>
+    {% endif %}
     <a href="/uranai">戻る</a>
   </main>
 </body>
