@@ -4,21 +4,24 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>占い</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='uranai.css') }}">
 </head>
 <body>
-  <main>
-    <h1>占い</h1>
-    <form action="/uranai/play" method="POST">
-      <p>
-        <label for="name">名前:</label>
-        <input type="text" id="name" name="name" required>
-      </p>
-      <p>
-        <label for="birthday">生年月日:</label>
-        <input type="date" id="birthday" name="birthday" required>
-      </p>
-      <button type="submit">占う</button>
-    </form>
+  <main class="page-shell">
+    <section class="panel" aria-labelledby="page-title">
+      <h1 id="page-title">今日の運勢を占う</h1>
+      <form action="/uranai/play" method="POST" class="fortune-form">
+        <div class="form-field">
+          <label for="name">お名前</label>
+          <input type="text" id="name" name="name" autocomplete="name" required>
+        </div>
+        <div class="form-field">
+          <label for="birthday">生年月日</label>
+          <input type="date" id="birthday" name="birthday" autocomplete="bday" required>
+        </div>
+        <button type="submit" class="primary-button">占う</button>
+      </form>
+    </section>
   </main>
 </body>
 </html>

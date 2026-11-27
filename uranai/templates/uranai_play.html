@@ -4,16 +4,25 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>占い結果</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='uranai.css') }}">
 </head>
 <body>
-  <main>
-    <h1>占い結果</h1>
-    <p>結果: {{ uranai_rank }}</p>
-    <p>{{ result_message }}</p>
+  <main class="page-shell">
+    <section class="panel" aria-labelledby="page-title">
+      <h1 id="page-title">今日の占い結果</h1>
+      {% if result_message == "入力不備で占えませんでした" %}
+      <div class="result-card is-invalid">
+      {% else %}
+      <div class="result-card rank-{{ uranai_rank }}">
+      {% endif %}
+        <p class="rank-number">{{ uranai_rank }} <span>/ 5</span></p>
+        <p class="result-message">{{ result_message }}</p>
+      </div>
     {% if name and birthday %}
-    <p>{{ name }}さん（{{ birthday }}）</p>
+      <p class="submitted-info">{{ name }}さん / {{ birthday }}</p>
     {% endif %}
-    <a href="/uranai">戻る</a>
+      <a class="secondary-button" href="/uranai">戻る</a>
+    </section>
   </main>
 </body>
 </html>
