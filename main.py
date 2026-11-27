@@ -24,9 +24,15 @@ def janken_play():
         name = "名無しさん"
 
     hand = request.form.get("hand", None)
+    is_settai = request.form.get("is_settai")
 
-    # リストの中からランダムに選ぶ
-    cpu = random.choice(["rock", "scissor", "paper"])
+    if is_settai:
+        if hand is None:
+            hand = "rock"
+        cpu = {"rock": "scissor", "scissor": "paper", "paper": "rock"}.get(hand)
+    else:
+        # リストの中からランダムに選ぶ
+        cpu = random.choice(["rock", "scissor", "paper"])
 
     if hand == cpu:
         result_message = "あいこ"
