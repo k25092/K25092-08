@@ -24,25 +24,35 @@ def janken_play():
         name = "名無しさん"
 
     hand = request.form.get("hand", None)
+    is_settai = request.form.get("is_settai")
 
-    # リストの中からランダムに選ぶ
-    cpu = random.choice(["rock", "scissor", "paper"])
+    if is_settai:
+        if hand is None:
+            hand = "rock"
+        cpu = {"rock": "scissor", "scissor": "paper", "paper": "rock"}.get(hand)
+    else:
+        # リストの中からランダムに選ぶ
+        cpu = random.choice(["rock", "scissor", "paper"])
 
+    is_win = False
     if hand == cpu:
         result_message = "あいこ"
     elif hand == "rock":
         if cpu == "scissor":
             result_message = "{}の勝ち".format(name)
+            is_win = True
         else:
             result_message = "{}の負け".format(name)
     elif hand == "scissor":
         if cpu == "paper":
             result_message = "{}の勝ち".format(name)
+            is_win = True
         else:
             result_message = "{}の負け".format(name)
     elif hand == "paper":
         if cpu == "rock":
             result_message = "{}の勝ち".format(name)
+            is_win = True
         else:
             result_message = "{}の負け".format(name)
     else:
@@ -51,6 +61,7 @@ def janken_play():
     # 渡したいデータを先に定義しておいてもいいし、テンプレートを先に作っておいても良い
     return render_template('janken_play.html',
                            result_message=result_message,
+                           is_win=is_win,
                            name=name,
                            hand=hand,
                            cpu=cpu)
